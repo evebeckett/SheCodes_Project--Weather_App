@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="Weather.css">
+    <script src="https://kit.fontawesome.com/76004d1330.js" crossorigin="anonymous"></script>
+    <script src = "JSWeather.js"></script>
+    
+</head>
+<body class>
+  <div class="container m-0 p-0">
+    <div class="d-flex justify-content-center">
+      <div class="row">
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-showers-heavy" id="firstDay"></i>  
+                </li>
+                <li>
+                    22
+                </li>
+                <li class="day" id="hour-one">
+                    Monday
+                </li>
+            </ul> 
+          </div>
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-showers-heavy" id="secondDay"></i>  
+                </li>
+                <li>
+                    23
+                </li>
+                <li class="day" id="hour-two">
+                    Tuesday
+                </li>
+            </ul>  
+          </div>
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-showers-heavy" id="thirdDay"></i>  
+                </li>
+                <li>
+                    24
+                </li>
+                <li class="day" id="hour-three">
+                    Wednesday
+                </li>
+            </ul>
+          </div>
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-sun" id="fourthDay"></i>
+                </li>
+                <li>
+                    25
+                </li>
+                <li class="day" id="hour-four">
+                    Thursday
+                </li>
+            </ul>
+          </div>
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-sun" id="fifthHour"></i>
+                </li>
+                <li>
+                    26
+                </li>
+                <li class="day" id="hour-five">
+                    Friday
+                </li>
+            </ul>
+          </div>
+          <div class="col-2">
+            <ul>
+                <li class="weather">
+                    <i class="fas fa-cloud-sun" id="sixthHour"></i>
+                </li>
+                <li>
+                    2y
+                </li>
+                <li class="day" id="hour-six">
+                    Saturday
+                </li>
+            </ul>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+        <ul>
+            <li>
+                <form id= "search-form">
+                    <label for="city">Search Your City: </label>
+                    <input type="text" placeholder="Search Your City" autocomplete="off" autofocus="on" id= "city-name-input">
+                    <input type="submit" value="Search";>
+                </form>
+            </li>
+        </ul>
+    </div> 
+      <div class="row">
+        <div class="col-9">
+            <ul>
+                <li>
+                  <h4> </h4>
+                </li>
+                <li>
+                    <h2 id="cityLocation">
+
+                    </h2>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul>
+                <li>
+            <h2 id="temperature">
+                 
+            </h2>
+        </li>
+        </ul>
+        </div>
+    </div>
+  </div>
+<script>
+let now = new Date();
+let h4 = document.querySelector('h4');
+let date = now.getDate();
+let hour = now.getHours();
+let minutes = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+let minuteTime = minutes[now.getMinutes()];
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let day = days[now.getDay()];
+let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+let month = months[now.getMonth()];
+let form = document.querySelector('#search-form');
+    
+let apiKey = 'd14ebe5d1dd27d0138a16ad2bcc5dd25';
+// let weatherstackApiUrl = 'a7199a4bbeca2d459eae8fb26b8fa025';
+
+
+function showHours(response) {
+    // let firstThree = document.querySelector("#hour-one");
+    // let secondThree = document.querySelector('#hour-two');
+    // let thirdThree = document.querySelector('#hour-three');
+    // let fourthThree = document.querySelector('#hour-four');
+    // let fifthThree = document.querySelector("#hour-five");
+    // let sixthThree = document.querySelector("#hour-six");
+    // firtstThree.innerHTML = response.list[0].main.temp;
+    // secondThree.innerHTML = response.list[1].main.temp;
+    // thirdThree.innerHTML = response.list[2].main.temp;
+    // fourthThree.innerHTML = response.list[3].main.temp;
+    // fifthThree.innerHTML = response.list[4].main.temp;
+    // sixthThree.innerHTML = response.list[5].main.temp;
+    
+    for (var i = 0; i < response.list.length; i++) {
+        var hours = ['one','two','three', 'four', 'five','six'];
+        var querySelector = "#hour-" + hours[i];
+        var hoursRange = document.querySelector(querySelector);
+        hoursRange.innerHTML = response.list[i].main.temp;
+
+    }
+
+}
+
+// function Forecast () {
+//     if (cityInput.value.indexOf(',') > -1) {
+//         let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city},${state}&cnt=4&appid=${apiKey}`;
+//         get(apiUrl).then(showForecast);
+//     } else {
+//         apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=4&appid=${apiKey}`
+//         get(apiUrl).then(showForecast);
+//     }
+// }
+    
+function showCity (response) {
+  let cityLoc = document.querySelector('#cityLocation');
+  cityLoc.innerHTML = response.data.name;
+}
+
+function showTemperature (response) {
+    let tempLoc = document.querySelector('#temperature');
+    tempLoc.innerHTML = Math.round(response.data.main.temp) + '°F';
+}
+
+function cityName (event){
+    event.preventDefault();
+    let cityInput = document.querySelector('#city-name-input');
+    let cityName = cityInput.value;
+    let h2 = document.querySelector('h2');
+    h2.innerHTML = cityName.charAt(0).toUpperCase() + cityName.slice(1);
+    h4.innerHTML = `${day}, ${month} ${date} ${hour}:${minuteTime}`
+    
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
+    axios.get(apiUrl).then(showTemperature);
+}
+
+    form.addEventListener("submit", cityName);  
+
+    navigator.geolocation.getCurrentPosition(showPosition);
+ 
+function showPosition(position) {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    h4.innerHTML = `${day}, ${month} ${date} ${hour}:${minuteTime}`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
+    axios.get(apiUrl).then(showTemperature);
+    axios.get(apiUrl).then(showCity);
+
+}
+
+function parseAddress(event) {
+    event.preventDefault();
+    var address = document.querySelector('#city-name-input');
+    let addressInput = address.value.trim();
+    var returned = {};
+    var comma = addressInput.indexOf(',');
+    returned.city = addressInput.slice(0, comma);
+        returned.city = returned.city.trim();
+    returned.state = addressInput.substring(comma + 1); // The string after the comma, +2 so that we skip the comma and the space.
+        returned.state = returned.state.trim();
+    if (returned.state.length === 2) {
+       returned.state = convertState(returned.state);
+    }
+    let apiUrlTwo = `https://api.openweathermap.org/data/2.5/weather?q=${returned.city},${returned.state}&units=imperial&appid=${apiKey}`;
+    let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${returned.city},${returned.state}&cnt=2&appid=${apiKey}`;
+    axios.get(apiUrlHourly).then(showHours);
+    axios.get(apiUrlTwo).then(showTemperature);
+    axios.get(apiUrlTwo).then(showCity);
+
+}
+
+form.addEventListener("submit", parseAddress);  
+
+
+let states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee", 
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+}
+
+stateSpelling = ''
+
+function convertState (abbrev) {
+    if (states[abbrev] !== undefined) {
+        stateSpelling = states[abbrev];
+    } else {
+        return;
+    }
+}
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
