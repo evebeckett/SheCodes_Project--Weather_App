@@ -17,79 +17,79 @@
       <div class="row">
           <div class="col-2">
             <ul>
+                <li id="first-hour">
+                    12
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-showers-heavy" id="firstDay"></i>  
                 </li>
-                <li>
-                    22
-                </li>
                 <li class="day" id="hour-one">
-                    Monday
+                    
                 </li>
             </ul> 
           </div>
           <div class="col-2">
             <ul>
+                <li id="second-hour">
+                    3
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-showers-heavy" id="secondDay"></i>  
                 </li>
-                <li>
-                    23
-                </li>
                 <li class="day" id="hour-two">
-                    Tuesday
+                    
                 </li>
             </ul>  
           </div>
           <div class="col-2">
             <ul>
+                <li id="third-hour">
+                    6
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-showers-heavy" id="thirdDay"></i>  
                 </li>
-                <li>
-                    24
-                </li>
                 <li class="day" id="hour-three">
-                    Wednesday
+                    
                 </li>
             </ul>
           </div>
           <div class="col-2">
             <ul>
+                <li id="fourth-hour">
+                    6
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-sun" id="fourthDay"></i>
                 </li>
-                <li>
-                    25
-                </li>
                 <li class="day" id="hour-four">
-                    Thursday
+                
                 </li>
             </ul>
           </div>
           <div class="col-2">
             <ul>
+                <li id="fifth-hour">
+                    9
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-sun" id="fifthHour"></i>
                 </li>
-                <li>
-                    26
-                </li>
                 <li class="day" id="hour-five">
-                    Friday
+                    
                 </li>
             </ul>
           </div>
           <div class="col-2">
             <ul>
+                <li id="sixth-hour">
+                    12
+                </li>
                 <li class="weather">
                     <i class="fas fa-cloud-sun" id="sixthHour"></i>
                 </li>
-                <li>
-                    2y
-                </li>
                 <li class="day" id="hour-six">
-                    Saturday
+                    
                 </li>
             </ul>
           </div>
@@ -147,43 +147,18 @@ let month = months[now.getMonth()];
 let form = document.querySelector('#search-form');
     
 let apiKey = 'd14ebe5d1dd27d0138a16ad2bcc5dd25';
-// let weatherstackApiUrl = 'a7199a4bbeca2d459eae8fb26b8fa025';
 
 
-function showHours(response) {
-    // let firstThree = document.querySelector("#hour-one");
-    // let secondThree = document.querySelector('#hour-two');
-    // let thirdThree = document.querySelector('#hour-three');
-    // let fourthThree = document.querySelector('#hour-four');
-    // let fifthThree = document.querySelector("#hour-five");
-    // let sixthThree = document.querySelector("#hour-six");
-    // firtstThree.innerHTML = response.list[0].main.temp;
-    // secondThree.innerHTML = response.list[1].main.temp;
-    // thirdThree.innerHTML = response.list[2].main.temp;
-    // fourthThree.innerHTML = response.list[3].main.temp;
-    // fifthThree.innerHTML = response.list[4].main.temp;
-    // sixthThree.innerHTML = response.list[5].main.temp;
-    
-    for (var i = 0; i < response.list.length; i++) {
+function showForecast(response) {
+    for (var i = 0; i < response.data.list.length; i++) {
         var hours = ['one','two','three', 'four', 'five','six'];
         var querySelector = "#hour-" + hours[i];
         var hoursRange = document.querySelector(querySelector);
-        hoursRange.innerHTML = response.list[i].main.temp;
-
+        hoursRange.innerHTML = Math.round(response.data.list[i].main.temp) + '°F';
     }
-
 }
 
-// function Forecast () {
-//     if (cityInput.value.indexOf(',') > -1) {
-//         let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city},${state}&cnt=4&appid=${apiKey}`;
-//         get(apiUrl).then(showForecast);
-//     } else {
-//         apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=4&appid=${apiKey}`
-//         get(apiUrl).then(showForecast);
-//     }
-// }
-    
+function showHours()
 function showCity (response) {
   let cityLoc = document.querySelector('#cityLocation');
   cityLoc.innerHTML = response.data.name;
@@ -234,8 +209,8 @@ function parseAddress(event) {
        returned.state = convertState(returned.state);
     }
     let apiUrlTwo = `https://api.openweathermap.org/data/2.5/weather?q=${returned.city},${returned.state}&units=imperial&appid=${apiKey}`;
-    let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${returned.city},${returned.state}&cnt=2&appid=${apiKey}`;
-    axios.get(apiUrlHourly).then(showHours);
+    let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?q=${returned.city},${returned.state}&appid=${apiKey}&units=imperial`;
+    axios.get(apiUrlHourly).then(showForecast);
     axios.get(apiUrlTwo).then(showTemperature);
     axios.get(apiUrlTwo).then(showCity);
 
