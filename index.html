@@ -158,7 +158,52 @@ function showForecast(response) {
     }
 }
 
-function showHours()
+
+// function parseTime(dateAndTime) {
+//     let space = dateAndTime.indexOf(' ');
+//     let time = Number(dateAndTime.substring(space, space + 3));
+//     if (time > 01 && time <= 11) {
+//       time = time + " am"
+//     } else if (time >= 12 && time <= 23) {
+//       time = (time - 12) + ' pm';
+//     } else if (time === 24 || time === 00) {
+//         time = (time - 12) + ' am';
+//     }
+//       else {
+//       return "this is not a time"
+//     }
+    
+// }
+
+function showHours(response) {
+    for (var i = 0; i < response.data.list.length; i++) {
+        var hours = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
+        var querySelector = '#' + hours[i] + "-hour";
+        var hoursRange = document.querySelector(querySelector);
+        var dateAndTime = response.data.list[i].dt_txt
+        function parseTime (dateAndTime) {
+            let space = dateAndTime.indexOf(' ');
+            let time = Number(dateAndTime.substring(space, space + 3));
+            if (time > 01 && time <= 11) {
+                time = time + " am"
+            } else if (time === 12) {
+                time = 12 + " pm"
+            } 
+            else if (time > 12 && time <= 23) {
+                time = (time - 12) + ' pm';
+            } else if (time === 24 || time === 00) {
+                time = 12 + ' am';
+            }
+              else {
+                return "this is not a time"
+            }
+            return time;
+        }
+        hoursRange.innerHTML = parseTime(dateAndTime);
+    }
+
+}
+
 function showCity (response) {
   let cityLoc = document.querySelector('#cityLocation');
   cityLoc.innerHTML = response.data.name;
@@ -203,7 +248,7 @@ function parseAddress(event) {
     var comma = addressInput.indexOf(',');
     returned.city = addressInput.slice(0, comma);
         returned.city = returned.city.trim();
-    returned.state = addressInput.substring(comma + 1); // The string after the comma, +2 so that we skip the comma and the space.
+    returned.state = addressInput.substring(comma + 1); 
         returned.state = returned.state.trim();
     if (returned.state.length === 2) {
        returned.state = convertState(returned.state);
@@ -211,6 +256,7 @@ function parseAddress(event) {
     let apiUrlTwo = `https://api.openweathermap.org/data/2.5/weather?q=${returned.city},${returned.state}&units=imperial&appid=${apiKey}`;
     let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?q=${returned.city},${returned.state}&appid=${apiKey}&units=imperial`;
     axios.get(apiUrlHourly).then(showForecast);
+    axios.get(apiUrlHourly).then(showHours);
     axios.get(apiUrlTwo).then(showTemperature);
     axios.get(apiUrlTwo).then(showCity);
 
