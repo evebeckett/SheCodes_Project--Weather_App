@@ -21,7 +21,7 @@
                     12
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="firstDay"></i>  
+                    <i class="fas fa-cloud-showers-heavy" id="icon-one"></i>  
                 </li>
                 <li class="day" id="hour-one">
                     
@@ -34,7 +34,7 @@
                     3
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="secondDay"></i>  
+                    <i class="fas fa-cloud-showers-heavy" id="icon-two"></i>  
                 </li>
                 <li class="day" id="hour-two">
                     
@@ -47,7 +47,7 @@
                     6
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="thirdDay"></i>  
+                    <i class="fas fa-cloud-showers-heavy" id="icon-three"></i>  
                 </li>
                 <li class="day" id="hour-three">
                     
@@ -60,7 +60,7 @@
                     6
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="fourthDay"></i>
+                    <i class="fas fa-cloud-sun" id="icon-four"></i>
                 </li>
                 <li class="day" id="hour-four">
                 
@@ -73,7 +73,7 @@
                     9
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="fifthHour"></i>
+                    <i class="fas fa-cloud-sun" id="icon-five"></i>
                 </li>
                 <li class="day" id="hour-five">
                     
@@ -86,7 +86,7 @@
                     12
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="sixthHour"></i>
+                    <i class="fas fa-cloud-sun" id="icon-six"></i>
                 </li>
                 <li class="day" id="hour-six">
                     
@@ -148,6 +148,14 @@ let form = document.querySelector('#search-form');
     
 let apiKey = 'd14ebe5d1dd27d0138a16ad2bcc5dd25';
 
+function showIcons(response) {
+    for (var i = 0; i < response.data.list.length; i++) {
+        var icons = ['one', 'two', 'three', 'four', 'five', 'six'];
+        var querySelector = "#icon-" + icons[i];
+        var placeIcons = document.querySelector(querySelector);
+        placeIcons.setAttribute('icon'+ [i] , `http://openweathermap.org/img/wn/${response.data.list[i].weather.icon}@2x.png`)
+    }
+}
 
 function showForecast(response) {
     for (var i = 0; i < response.data.list.length; i++) {
@@ -159,21 +167,6 @@ function showForecast(response) {
 }
 
 
-// function parseTime(dateAndTime) {
-//     let space = dateAndTime.indexOf(' ');
-//     let time = Number(dateAndTime.substring(space, space + 3));
-//     if (time > 01 && time <= 11) {
-//       time = time + " am"
-//     } else if (time >= 12 && time <= 23) {
-//       time = (time - 12) + ' pm';
-//     } else if (time === 24 || time === 00) {
-//         time = (time - 12) + ' am';
-//     }
-//       else {
-//       return "this is not a time"
-//     }
-    
-// }
 
 function showHours(response) {
     for (var i = 0; i < response.data.list.length; i++) {
@@ -259,6 +252,7 @@ function parseAddress(event) {
     axios.get(apiUrlHourly).then(showHours);
     axios.get(apiUrlTwo).then(showTemperature);
     axios.get(apiUrlTwo).then(showCity);
+    axios.get(apiUrlHourly).then(showIcons);
 
 }
 
