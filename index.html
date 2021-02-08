@@ -130,11 +130,6 @@
                     </h5>
                 </li>
                 <li>
-                    <h5 id="precipitation">
-
-                    </h5>
-                </li>
-                <li>
                     <h5 id="weather-description">
 
                     </h5>
@@ -217,9 +212,11 @@ function showHours(response) {
 
 function showWeather(response) {
     let windSpeed = document.querySelector("#wind-speed");
-    windSpeed.innerHTML = response.data.wind.speed;
-    let precipitation = 
-    precipitation.innerHTML = response.data.
+    windSpeed.innerHTML = "Wind Speed: " + response.data.wind.speed;
+    let weatherDescription = document.querySelector('#weather-description');
+    weatherDescription.innerHTML = "Weather Description: " + response.data.weather.description;
+    let currentWeatherIcon = document.querySelector("#current-weather-icon"); 
+    currentWeatherIcon.setAttribute('icon', `https://openweathermap.org/img/wn/${response.data.weather.icon}@2x.png`)
 }
 
 function showCity (response) {
