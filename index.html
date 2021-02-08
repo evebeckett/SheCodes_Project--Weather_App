@@ -166,8 +166,6 @@ function showForecast(response) {
     }
 }
 
-
-
 function showHours(response) {
     for (var i = 0; i < response.data.list.length; i++) {
         var hours = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
@@ -217,6 +215,10 @@ function cityName (event){
     
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
+    let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
+    axios.get(apiUrlHourly).then(showForecast);
+    axios.get(apiUrlHourly).then(showHours);
+    axios.get(apiUrlHourly).then(showIcons);
 }
 
     form.addEventListener("submit", cityName);  
@@ -230,6 +232,10 @@ function showPosition(position) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showCity);
+    let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
+    axios.get(apiUrlHourly).then(showForecast);
+    axios.get(apiUrlHourly).then(showHours);
+    axios.get(apiUrlHourly).then(showIcons);
 
 }
 
