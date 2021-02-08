@@ -125,10 +125,30 @@
         <div class="col-3">
             <ul>
                 <li>
-            <h2 id="temperature">
+                    <h5 id="wind-speed">
+
+                    </h5>
+                </li>
+                <li>
+                    <h5 id="precipitation">
+
+                    </h5>
+                </li>
+                <li>
+                    <h5 id="weather-description">
+
+                    </h5>
+                </li>
+                <li>
+                    <h1 id="current-weather-icon">
+
+                    </h1>
+                </li>
+                <li>
+                    <h2 id="temperature">
                  
-            </h2>
-        </li>
+                    </h2>
+                </li>
         </ul>
         </div>
     </div>
@@ -153,8 +173,8 @@ function showIcons(response) {
         var icons = ['one', 'two', 'three', 'four', 'five', 'six'];
         var querySelector = "#icon-" + icons[i];
         var placeIcons = document.querySelector(querySelector);
-        placeIcons.setAttribute('icon'+ [i] , `http://openweathermap.org/img/wn/${response.data.list[i].weather.icon}@2x.png`)
-    }
+        placeIcons.setAttribute('icon'+ [i] , `https://openweathermap.org/img/wn/${response.data.list[i].weather.icon}@2x.png`)
+    }                                          
 }
 
 function showForecast(response) {
@@ -195,6 +215,13 @@ function showHours(response) {
 
 }
 
+function showWeather(response) {
+    let windSpeed = document.querySelector("#wind-speed");
+    windSpeed.innerHTML = response.data.wind.speed;
+    let precipitation = 
+    precipitation.innerHTML = response.data.
+}
+
 function showCity (response) {
   let cityLoc = document.querySelector('#cityLocation');
   cityLoc.innerHTML = response.data.name;
@@ -215,6 +242,7 @@ function cityName (event){
     
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
+    axios.get(apiUrl).then(showWeather);
     let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
     axios.get(apiUrlHourly).then(showForecast);
     axios.get(apiUrlHourly).then(showHours);
@@ -232,6 +260,7 @@ function showPosition(position) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showCity);
+    axios.get(apiUrl).then(showWeather);
     let apiUrlHourly = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
     axios.get(apiUrlHourly).then(showForecast);
     axios.get(apiUrlHourly).then(showHours);
@@ -258,6 +287,7 @@ function parseAddress(event) {
     axios.get(apiUrlHourly).then(showHours);
     axios.get(apiUrlTwo).then(showTemperature);
     axios.get(apiUrlTwo).then(showCity);
+    axios.get(apiUrlTwo).then(showWeather);
     axios.get(apiUrlHourly).then(showIcons);
 
 }
