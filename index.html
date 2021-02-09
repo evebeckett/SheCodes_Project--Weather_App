@@ -110,7 +110,7 @@
         </ul>
     </div> 
       <div class="row">
-        <div class="col-9">
+        <div class="col-7">
             <ul>
                 <li>
                   <h4> </h4>
@@ -122,7 +122,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-3">
+        <div class="col-5">
             <ul>
                 <li>
                     <h5 id="wind-speed">
@@ -131,12 +131,12 @@
                 </li>
                 <li>
                     <h5 id="weather-description">
-
+                        
                     </h5>
                 </li>
                 <li>
                     <h1 id="current-weather-icon">
-
+                        <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-current-weather">
                     </h1>
                 </li>
                 <li>
@@ -168,7 +168,7 @@ function showIcons(response) {
         var icons = ['one', 'two', 'three', 'four', 'five', 'six'];
         var querySelector = "#icon-" + icons[i];
         var placeIcons = document.querySelector(querySelector);
-        placeIcons.setAttribute('icon'+ [i] , `https://openweathermap.org/img/wn/${response.data.list[i].weather.icon}@2x.png`)
+        placeIcons.setAttribute('icon'+ [i] , `https://openweathermap.org/img/wn/${response.data.list[i].weather[0].icon}@2x.png`)
     }                                          
 }
 
@@ -212,11 +212,11 @@ function showHours(response) {
 
 function showWeather(response) {
     let windSpeed = document.querySelector("#wind-speed");
-    windSpeed.innerHTML = "Wind Speed: " + response.data.wind.speed;
+    windSpeed.innerHTML = "Wind Speed: " + response.data.wind.speed + " mph";
     let weatherDescription = document.querySelector('#weather-description');
-    weatherDescription.innerHTML = "Weather Description: " + response.data.weather.description;
-    let currentWeatherIcon = document.querySelector("#current-weather-icon"); 
-    currentWeatherIcon.setAttribute('icon', `https://openweathermap.org/img/wn/${response.data.weather.icon}@2x.png`)
+    weatherDescription.innerHTML = "Weather Description: " + response.data.weather[0].description;
+    let currentWeatherIcon = document.querySelector("#icon-current-weather"); 
+    currentWeatherIcon.setAttribute ('src', `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 }
 
 function showCity (response) {
@@ -236,7 +236,6 @@ function cityName (event){
     let h2 = document.querySelector('h2');
     h2.innerHTML = cityName.charAt(0).toUpperCase() + cityName.slice(1);
     h4.innerHTML = `${day}, ${month} ${date} ${hour}:${minuteTime}`
-    
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showWeather);
