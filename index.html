@@ -12,16 +12,16 @@
     
 </head>
 <body class>
-  <div class="container m-0 p-0">
+  <div class="container-fluid m-0 p-0">
     <div class="d-flex justify-content-center">
       <div class="row">
           <div class="col-2">
             <ul>
-                <li id="first-hour">
+                <li class="time" id="first-hour">
                     12
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="icon-one"></i>  
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-one"> 
                 </li>
                 <li class="day" id="hour-one">
                     
@@ -30,11 +30,11 @@
           </div>
           <div class="col-2">
             <ul>
-                <li id="second-hour">
+                <li class="time" id="second-hour">
                     3
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="icon-two"></i>  
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-two">  
                 </li>
                 <li class="day" id="hour-two">
                     
@@ -43,11 +43,11 @@
           </div>
           <div class="col-2">
             <ul>
-                <li id="third-hour">
+                <li class="time" id="third-hour">
                     6
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-showers-heavy" id="icon-three"></i>  
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-four">  
                 </li>
                 <li class="day" id="hour-three">
                     
@@ -56,11 +56,11 @@
           </div>
           <div class="col-2">
             <ul>
-                <li id="fourth-hour">
+                <li class="time" id="fourth-hour">
                     6
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="icon-four"></i>
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-five">
                 </li>
                 <li class="day" id="hour-four">
                 
@@ -69,11 +69,11 @@
           </div>
           <div class="col-2">
             <ul>
-                <li id="fifth-hour">
+                <li class="time" id="fifth-hour">
                     9
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="icon-five"></i>
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-five">
                 </li>
                 <li class="day" id="hour-five">
                     
@@ -82,11 +82,11 @@
           </div>
           <div class="col-2">
             <ul>
-                <li id="sixth-hour">
+                <li class="time" id="sixth-hour">
                     12
                 </li>
                 <li class="weather">
-                    <i class="fas fa-cloud-sun" id="icon-six"></i>
+                    <img src='https://openweathermap.org/img/wn/04d@2x.png' alt="Clear" class="float-left" id="icon-six">
                 </li>
                 <li class="day" id="hour-six">
                     
@@ -110,7 +110,7 @@
         </ul>
     </div> 
       <div class="row">
-        <div class="col-7">
+        <div class="col-8">
             <ul>
                 <li>
                   <h4> </h4>
@@ -122,7 +122,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <ul>
                 <li>
                     <h5 id="wind-speed">
@@ -168,7 +168,7 @@ function showIcons(response) {
         var icons = ['one', 'two', 'three', 'four', 'five', 'six'];
         var querySelector = "#icon-" + icons[i];
         var placeIcons = document.querySelector(querySelector);
-        placeIcons.setAttribute('icon'+ [i] , `https://openweathermap.org/img/wn/${response.data.list[i].weather[0].icon}@2x.png`)
+        placeIcons.setAttribute('src' , `https://openweathermap.org/img/wn/${response.data.list[i].weather[0].icon}@2x.png`)
     }                                          
 }
 
